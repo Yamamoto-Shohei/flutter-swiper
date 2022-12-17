@@ -40,23 +40,22 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.white
   ];
 
+  Widget pageWidget(index) => Container(
+      color: pageColors.elementAt(index),
+      width: Size.infinite.width,
+      height: Size.infinite.height,
+      alignment: Alignment.center,
+      child: Text('${index + 1} page',
+          style: Theme.of(context).textTheme.headline1!.copyWith(
+              color: pageColors.elementAt(index).computeLuminance() < 0.5
+                  ? Colors.white
+                  : Colors.black)));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Swiper(
-        itemBuilder: (context, index) {
-          return Container(
-            color: pageColors.elementAt(index),
-            width: Size.infinite.width,
-            height: Size.infinite.height,
-            alignment: Alignment.center,
-            child: Text('${index + 1} page',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                    color: pageColors.elementAt(index).computeLuminance() < 0.5
-                        ? Colors.white
-                        : Colors.black)),
-          );
-        },
+        itemBuilder: (context, index) => pageWidget(index),
         itemCount: pageColors.length,
         scrollDirection: Axis.vertical,
       ),
